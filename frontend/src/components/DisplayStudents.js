@@ -24,37 +24,72 @@ const Container = styled.div`
 const DataCard = styled.div`
   border-top: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
+  display: flex;
+  padding: 20px;
 `;
 
 const StudentInfo = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 20px 30px;
+`;
+
+const StudentText = styled.div`
+  flex: 8;
+  h1 {
+    font-size: 40px;
+  }
+`;
+
+const StudentImage = styled.div`
+  flex: 2;
+  border: 1px solid gray;
+  border-radius: 500px;
+  overflow: hidden;
+  margin: 0 20px;
+  img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 function DisplayStudents({ data: { students = [] } }) {
-  // const [students, setStudents] = useState([]);
-  // useEffect(() => {
-  //   setStudents(data.students);
-  //   console.log(data);
-  // }, [data]);
-  console.log(students);
+  const [_students, setStudents] = useState([]);
+  const [filterValue, setFilterValue] = useState('');
+
+  useEffect(() => {
+    setStudents(students);
+  }, [students]);
+
+  const handleChange = (e) => {
+    setFilterValue(e.target.value);
+  };
+
+  console.log('display students: ', students);
 
   return students.length ? (
     <Layout>
       <Container>
-        {students.map(({ firstName, lastName, email, company, skill, pic, id, grades }) => (
-          <DataCard key={id}>
-            <h1>{`${firstName} ${lastName}`}</h1>
-            <StudentInfo>
-              <p>Email: {email}</p>
-              <p>Company: {company}</p>
-              <p>Skill: {skill} </p>
-              <p>
-                Average: {grades.reduce((a, b) => parseInt(a) + parseInt(b), 0) / grades.length}%
-              </p>
-            </StudentInfo>
-          </DataCard>
-        ))}
+        <input type="text" onChange={handleChange} placeholder="search by name" id="name-input" />
+        {_students.map(({ firstName, lastName, email, company, skill, pic, id, grades }) => {
+          if (!(firstName + lastName).toLowerCase().includes(filterValue)) return null;
+          return (
+            <DataCard key={id}>
+              <StudentImage>
+                <img src={pic} alt="" />
+              </StudentImage>
+              <StudentText>
+                <h1>{`${firstName} ${lastName}`}</h1>
+                <StudentInfo>
+                  <p>Email: {email}</p>
+                  <p>Company: {company}</p>
+                  <p>Skill: {skill} </p>
+                  <p>Average: {grades.reduce((a, b) => a + parseInt(b), 0) / grades.length}%</p>
+                </StudentInfo>
+              </StudentText>
+            </DataCard>
+          );
+        })}
       </Container>
     </Layout>
   ) : null;
