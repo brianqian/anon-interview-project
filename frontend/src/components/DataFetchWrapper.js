@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 function DataFetchWrapper({ source, children }) {
-  const [retrievedData, setRetrievedData] = useState(null);
+  const [retrievedData, setRetrievedData] = useState([]);
 
   useEffect(() => {
     const fetchData = async (source) => {
@@ -19,11 +19,11 @@ function DataFetchWrapper({ source, children }) {
 
   // React.cloneElement(children, )
   return (
-    <div>
+    <>
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, { data: retrievedData });
       })}
-    </div>
+    </>
   );
 }
 
