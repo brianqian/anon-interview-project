@@ -32,7 +32,7 @@ input{
 `;
 
 function App() {
-  const API_LINK = 'https://www.hatchways.io/api/assessment/students';
+  const API_LINK = 'http://localhost:3001/frontend/api';
   return (
     <DataFetchWrapper source={API_LINK}>
       <GlobalStyle />

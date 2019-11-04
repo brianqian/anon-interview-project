@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const cache = require('./cache');
 
-const API_LINK = 'https://hatchways.io/api/assessment/blog/posts?tag=';
+const API_LINK = process.env.API_LINK;
 
 const client = {
   request: async function(query) {

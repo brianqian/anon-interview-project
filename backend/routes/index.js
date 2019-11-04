@@ -2,7 +2,9 @@ const router = require('express').Router();
 const client = require('../utils/HTTPClient');
 const cache = require('../utils/cache');
 const { sortResults, validateQueries, returnUniqueData } = require('../utils/helper');
+const frontendRoutes = require('./frontend');
 
+router.use('/frontend', frontendRoutes);
 router.get('/api/ping', (req, res) => {
   res.json({ success: true });
 });
@@ -13,7 +15,12 @@ router.get('/api/posts', async (req, res) => {
   validateQueries(tag, sortBy, direction, res);
   const queries = tag.split(',');
   cache.checkExpiration();
-  const results = await client.batchRequest(queries);
+  let results;
+  try {
+    results = await client.batchRequest(queries);
+  } catch (e) {
+    res.status(parseInt(e.message)).json({ error: 'Error fetching data' });
+  }
   const uniqueResults = returnUniqueData(results);
   res.json({ posts: sortBy ? sortResults(uniqueResults, sortBy, direction) : uniqueResults });
 });
