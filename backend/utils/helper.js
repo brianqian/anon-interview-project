@@ -1,10 +1,10 @@
 const sortResults = (dataset, sortBy, direction) => {
   if (!dataset) return;
   const data = dataset.sort((a, b) => {
-    if (direction === 'asc') {
-      return a[sortBy] > b[sortBy] ? 1 : -1;
+    if (direction === 'desc') {
+      return a[sortBy] < b[sortBy] ? 1 : -1;
     }
-    return a[sortBy] < b[sortBy] ? 1 : -1;
+    return a[sortBy] > b[sortBy] ? 1 : -1;
   });
   return data;
 };
@@ -13,7 +13,6 @@ const returnUniqueData = (dataset) => {
   const sieve = new Set();
   const uniqueData = [];
   dataset.forEach((item) => {
-    console.log('itemid', item.id);
     if (!sieve.has(item.id)) {
       uniqueData.push(item);
       sieve.add(item.id);
