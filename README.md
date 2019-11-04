@@ -9,7 +9,8 @@ The two projects are completely unrelated to each other so I'm keeping them sepa
 hide the API for the frontend, I added a route to the backend server that serves the API for the
 frontend. Locally the backend runs on port 3001 and the frontend on port 3000. If you go into the
 root directory of `/backend`, you can use the command `npm run start:all` to concurrently run the
-backend and frontend projects.
+backend and frontend projects. To run this and see it in action you'll have to contact me regarding
+the API links.
 
 # Frontend requirements
 
