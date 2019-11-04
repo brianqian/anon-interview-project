@@ -17,7 +17,6 @@ function DataFetchWrapper({ source, children }) {
     fetchData(source);
   }, [source]);
 
-  // React.cloneElement(children, )
   return (
     <>
       {React.Children.map(children, (child) => {

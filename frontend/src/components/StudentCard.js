@@ -1,45 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ExpandedInfo from './ExpandedInfo';
 
 const Container = styled.div`
   border-top: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
-  display: flex;
   padding: 20px;
+  width: 100%;
+  display: flex;
+`;
+
+const StudentImage = styled.div`
+  width: 20%;
+  border: 1px solid gray;
+  border-radius: 500px;
+  overflow: hidden;
+  margin: 0 20px;
+  min-width: 200px;
+  height: 200px;
+  img {
+    width: 100%;
+    height: auto;
+  }
+`;
+
+const StudentText = styled.div`
+  width: 80%;
+  header {
+    display: flex;
+    justify-content: space-between;
+    span {
+      font-size: 52px;
+      color: lightgray;
+      cursor: default;
+      :hover {
+        color: black;
+      }
+    }
+  }
+  h1 {
+    font-size: 40px;
+    text-transform: uppercase;
+  }
 `;
 
 const StudentInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-`;
-
-const StudentText = styled.div`
-  flex: 8;
-  header {
-    display: flex;
-    justify-content: space-between;
-    span {
-      font-size: 40px;
-    }
-  }
-  h1 {
-    font-size: 40px;
-  }
-`;
-
-const StudentImage = styled.div`
-  flex: 2;
-  border: 1px solid gray;
-  border-radius: 500px;
-  overflow: hidden;
-  margin: 0 20px;
-  height: 200px;
-  img {
-    height: auto;
-    width: 100%;
-  }
 `;
 
 function DataCard({
@@ -62,9 +70,10 @@ function DataCard({
     const name = firstName + lastName;
     const nameIsNotFiltered = name.toLowerCase().includes(filterName);
     const tagIsNotFiltered =
-      tags.some((tag) => tag.includes(filterTag)) || (!tags.length && !filterTag);
+      !filterTag || tags.some((tag) => tag.toLowerCase().includes(filterTag));
+
     setRenderComponent(nameIsNotFiltered && tagIsNotFiltered);
-  }, [filterName, filterTag]);
+  }, [filterName, filterTag, firstName, lastName, tags]);
 
   const expandCard = () => {
     setIsExpanded(!isExpanded);
@@ -82,7 +91,9 @@ function DataCard({
       <StudentText>
         <header>
           <h1>{`${firstName} ${lastName}`}</h1>
-          <span onClick={expandCard}>{isExpanded ? '-' : '+'}</span>
+          <span className="expand-btn" onClick={expandCard}>
+            {isExpanded ? '-' : '+'}
+          </span>
         </header>
         <StudentInfo>
           <p>Email: {email}</p>

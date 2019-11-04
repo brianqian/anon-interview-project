@@ -23,21 +23,11 @@ const Container = styled.div`
 `;
 
 function DisplayStudents({ data: { students = [] } }) {
-  const [_students, setStudents] = useState([]);
-  const [formInput, setFormInput] = useState({ filterName: '', filterTag: '', addTag: '' });
-
-  useEffect(() => {
-    if (students.length) {
-      setStudents(students);
-    }
-  }, [students]);
+  const [filterInput, setFilterInput] = useState({ filterName: '', filterTag: '' });
 
   const handleChange = ({ target: { name, value } }) => {
-    setFormInput({ ...formInput, [name]: value });
-    console.log(formInput);
+    setFilterInput({ ...filterInput, [name]: value.toLowerCase() });
   };
-
-  console.log('display students: ', students);
 
   return students.length ? (
     <Layout>
@@ -48,7 +38,7 @@ function DisplayStudents({ data: { students = [] } }) {
           placeholder="search by name"
           id="name-input"
           name="filterName"
-          value={formInput.filterName}
+          value={filterInput.filterName}
         />
         <input
           type="text"
@@ -56,15 +46,15 @@ function DisplayStudents({ data: { students = [] } }) {
           placeholder="search by tag"
           id="tag-input"
           name="filterTag"
-          value={formInput.filterTag}
+          value={filterInput.filterTag}
         />
-        {_students.map((student) => {
+        {students.map((student) => {
           return (
             <StudentCard
               {...student}
               key={`student-card-${student.id}`}
-              filterName={formInput.filterName}
-              filterTag={formInput.filterTag}
+              filterName={filterInput.filterName}
+              filterTag={filterInput.filterTag}
             />
           );
         })}

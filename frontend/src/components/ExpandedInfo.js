@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 20px 0;
+`;
 
 const Grades = styled.div``;
 
-const Tags = styled.div`
+const TagContainer = styled.div`
   display: flex;
   flex-direction: column;
 
   span {
     padding: 3px 8px;
     background-color: lightgray;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 0 8px;
   }
 `;
 
-const TagContainer = styled.div`
+const Tags = styled.div`
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   span {
     width: fit-content;
   }
@@ -41,17 +46,17 @@ function ExpandedInfo({ grades, addTag, tags, studentId }) {
         {grades.map((grade, i) => {
           return (
             <p key={`${studentId}-grade-${i}`}>
-              Test {i}: <span>{grade}%</span>
+              Test {i + 1}: <span>{grade}%</span>
             </p>
           );
         })}
       </Grades>
-      <Tags>
-        <TagContainer>
+      <TagContainer>
+        <Tags>
           {tags.map((tag) => {
             return <span>{tag}</span>;
           })}
-        </TagContainer>
+        </Tags>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -59,9 +64,10 @@ function ExpandedInfo({ grades, addTag, tags, studentId }) {
             name="addTag"
             onChange={handleChange}
             value={tagValue}
+            placeholder="Add tag"
           />
         </form>
-      </Tags>
+      </TagContainer>
     </Container>
   );
 }
