@@ -24,27 +24,29 @@ const StudentImage = styled.div`
   }
 `;
 
-const StudentText = styled.div`
+const StudentInfo = styled.div`
   width: 80%;
-  header {
-    display: flex;
-    justify-content: space-between;
-    span {
-      font-size: 52px;
-      color: lightgray;
-      cursor: default;
-      :hover {
-        color: black;
-      }
+`;
+
+const StudentHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  span {
+    font-size: 52px;
+    color: lightgray;
+    cursor: default;
+    :hover {
+      color: black;
     }
-  }
-  h1 {
-    font-size: 40px;
-    text-transform: uppercase;
   }
 `;
 
-const StudentInfo = styled.div`
+const StudentName = styled.h1`
+  font-size: 40px;
+  text-transform: uppercase;
+`;
+
+const StudentDetails = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
@@ -88,14 +90,14 @@ function DataCard({
       <StudentImage>
         <img src={pic} alt="" />
       </StudentImage>
-      <StudentText>
-        <header>
-          <h1>{`${firstName} ${lastName}`}</h1>
+      <StudentInfo>
+        <StudentHeader>
+          <StudentName>{`${firstName} ${lastName}`}</StudentName>
           <span className="expand-btn" onClick={expandCard}>
             {isExpanded ? '-' : '+'}
           </span>
-        </header>
-        <StudentInfo>
+        </StudentHeader>
+        <StudentDetails>
           <p>Email: {email}</p>
           <p>Company: {company}</p>
           <p>Skill: {skill} </p>
@@ -103,8 +105,8 @@ function DataCard({
           {isExpanded && (
             <ExpandedInfo grades={grades} addTag={addTag} tags={tags} studentId={id} />
           )}
-        </StudentInfo>
-      </StudentText>
+        </StudentDetails>
+      </StudentInfo>
     </Container>
   ) : null;
 }

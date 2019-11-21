@@ -11,7 +11,6 @@ router.get('/api/ping', (req, res) => {
 
 router.get('/api/posts', async (req, res) => {
   const { tag, sortby: sortBy = 'id', direction = 'asc' } = req.query;
-  console.log('TAG', tag);
   validateQueries(tag, sortBy, direction, res);
   const queries = tag.split(',');
   cache.checkExpiration();

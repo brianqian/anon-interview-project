@@ -5,17 +5,15 @@ const Container = styled.div`
   margin: 20px 0;
 `;
 
-const Grades = styled.div``;
-
 const TagContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   span {
     padding: 3px 8px;
     background-color: lightgray;
     border-radius: 5px;
     margin: 0 8px;
+    width: fit-content;
   }
 `;
 
@@ -23,9 +21,6 @@ const Tags = styled.div`
   max-width: 100%;
   display: flex;
   flex-wrap: wrap;
-  span {
-    width: fit-content;
-  }
 `;
 
 function ExpandedInfo({ grades, addTag, tags, studentId }) {
@@ -42,15 +37,13 @@ function ExpandedInfo({ grades, addTag, tags, studentId }) {
   };
   return (
     <Container>
-      <Grades>
-        {grades.map((grade, i) => {
-          return (
-            <p key={`${studentId}-grade-${i}`}>
-              Test {i + 1}: <span>{grade}%</span>
-            </p>
-          );
-        })}
-      </Grades>
+      {grades.map((grade, i) => {
+        return (
+          <p key={`${studentId}-grade-${i}`}>
+            Test {i + 1}: <span>{grade}%</span>
+          </p>
+        );
+      })}
       <TagContainer>
         <Tags>
           {tags.map((tag) => {

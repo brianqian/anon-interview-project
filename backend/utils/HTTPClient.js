@@ -8,7 +8,7 @@ const client = {
     const cachedResult = cache.get(query);
     if (cachedResult.length) return cachedResult;
     const resp = await fetch(API_LINK + query);
-    if (resp.status !== 200) throw Error(resp.status);
+    if (resp.status !== 200) throw new Error(resp.status);
     const { posts = [] } = await resp.json();
     cache.set(query, posts);
     return posts;
